@@ -3,7 +3,10 @@
 // -------------------------------------------------------------------------------------------------
 use clipboard::{ClipboardContext, ClipboardProvider as SystemClipboard};
 use failure::{err_msg, Error};
+
 use std::sync::Mutex;
+use std::thread::sleep;
+use std::time::Duration;
 
 use crate::content::{Consumer, Provider};
 // -------------------------------------------------------------------------------------------------
@@ -25,20 +28,46 @@ impl ClipboardSingleton {
         }
     }
 
+    /// Repeatedly attempts to get the contents of the clipboard, retrying every 10 seconds.
+    /// This exists because the Windows clipboard appears to fail randomly.
+    ///
+    /// ## Arguments:
+    /// - `tries` - The number of tries before giving up with an error.
+    ///
+    /// ## Returns:
+    /// The result containing the clipboard contents, or the last error that occurred.
+    fn get_contents_retry(&mut self, tries: usize) -> Result<String, Box<std::error::Error>> {
+        let mut remaining = tries + 1;
+        let mut last_err:Option<Box<std::error::Error>> = None;
+
+        while remaining > 0 {
+            remaining -= 1;
+
+            match self.clipboard.get_contents() {
+                Ok(data) => return Ok(data),
+                Err(err) => last_err = Some(err)
+            };
+
+            sleep(Duration::from_millis(10));
+        }
+
+        Err(last_err.unwrap())
+    }
+
     pub fn set_data(&mut self, data: String) -> Result<(), Error> {
         Self::fix_error(self.clipboard.set_contents(data))?;
-        self.ignore = Self::fix_error(self.clipboard.get_contents())?;
+        self.ignore = Self::fix_error(self.get_contents_retry(10))?;
         Ok(())
     }
 
     pub fn get_data(&mut self) -> Result<String, Error> {
-        let data = Self::fix_error(self.clipboard.get_contents())?;
+        let data = Self::fix_error(self.get_contents_retry(10))?;
         self.ignore = data.clone();
         Ok(data)
     }
 
     pub fn has_changed(&mut self) -> Result<bool, Error> {
-        let data = Self::fix_error(self.clipboard.get_contents())?;
+        let data = Self::fix_error(self.get_contents_retry(10))?;
         if data == self.ignore {
             Ok(false)
         } else {
