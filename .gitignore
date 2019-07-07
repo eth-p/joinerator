@@ -1,6 +1,7 @@
 # Project
 /target
 /src/repertoire.cache
+/.cargo/config
 **/*.rs.bk
 
 # Environment

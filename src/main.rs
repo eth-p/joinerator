@@ -2,7 +2,6 @@
 // joinerator | Copyright (C) 2019 eth-p
 // -------------------------------------------------------------------------------------------------
 extern crate ansi_term;
-extern crate atty;
 extern crate clap;
 extern crate failure;
 extern crate rand;
@@ -13,6 +12,9 @@ extern crate serde_regex;
 
 #[macro_use]
 extern crate lazy_static;
+
+#[cfg(not(target = "windows"))]
+extern crate atty;
 
 #[cfg(feature = "clipboard_support")]
 extern crate clipboard;
@@ -31,9 +33,11 @@ use std::thread::sleep;
 use std::time::Duration;
 
 use ansi_term::{Color, Style};
-use atty::Stream;
 use clap::{App, Arg, ArgMatches};
 use failure::{Error, Fail};
+
+#[cfg(not(target = "windows"))]
+use atty::Stream;
 
 use crate::content::{Consumer, Provider};
 use crate::joinerator::{GeneratorFrequency, GeneratorOptions, Joinerator, Options};
@@ -103,7 +107,7 @@ lazy_static! {
     };
     static ref COLORS: Colors = {
         #[cfg(target_os = "windows")]
-        let enabled = ansi_term::enable_ansi_support();
+        let enabled = ansi_term::enable_ansi_support().is_ok();
 
         #[cfg(not(target_os = "windows"))]
         let enabled = atty::is(Stream::Stdout);
