@@ -26,6 +26,12 @@ You can use it like any other Unix command line tool.
 cat src/main.rs | joinerator
 ```
 
+**Transform text without joinerating anything:**  
+It defeats the purpose, but why not!
+```bash
+joinerator --transform randomcase --limit 0
+```
+
 **Change the frequency of how often combining marks appear:**  
 You can change how often the marks appear, and how many marks can stack at once.
 

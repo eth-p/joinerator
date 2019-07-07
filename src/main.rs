@@ -21,6 +21,7 @@ extern crate clipboard;
 mod content;
 mod joinerator;
 mod repertoire;
+mod transform;
 
 // -------------------------------------------------------------------------------------------------
 use std::collections::linked_list::LinkedList;
@@ -37,6 +38,7 @@ use failure::{Error, Fail};
 use crate::content::{Consumer, Provider};
 use crate::joinerator::{GeneratorFrequency, GeneratorOptions, Joinerator, Options};
 use crate::repertoire::{GlyphPosition, Repertoire};
+use crate::transform::Transformer;
 // -------------------------------------------------------------------------------------------------
 
 struct Colors {
@@ -140,6 +142,7 @@ fn main() {
     // Initialize program.
     let mut provider = get_provider(&matches);
     let mut consumer = get_consumer(&matches);
+    let mut transformers = get_transformers(&matches);
     let repertoire = get_repertoire(matches.value_of("repertoire").unwrap()).unwrap();
 
     let mut joinerator = Joinerator::new(Options {
@@ -172,6 +175,7 @@ fn main() {
         &mut joinerator,
         &mut provider,
         &mut consumer,
+        &mut transformers,
         verbose,
         matches.is_present("watch"),
     );
@@ -186,14 +190,19 @@ fn main_loop(
     joinerator: &mut Joinerator,
     provider: &mut Box<Provider>,
     consumer: &mut Box<Consumer>,
+    transformers: &mut Vec<Box<Transformer>>,
     verbose: bool,
     watch: bool,
 ) -> Result<(), Error> {
     let mut more = true;
     while more {
-        // Input from the source.
+        // Input processing.
         let input = (*provider).provide()?;
-        let processed = joinerator.process(&input);
+        let transformed = transformers
+            .iter_mut()
+            .fold(Ok(input.clone()), |o, t| o.and_then(|v| t.transform(v)))?;
+
+        let processed = joinerator.process(&transformed);
 
         // Output to logs.
         if verbose {
@@ -256,6 +265,23 @@ fn get_repertoire<'a>(name: &str) -> Option<&'a Repertoire> {
     REPERTOIRES.get(name)
 }
 
+fn get_transformers<'a>(matches: &'a ArgMatches<'a>) -> Vec<Box<Transformer>> {
+    if !matches.is_present("transform") {
+        return vec![];
+    }
+
+    matches
+        .values_of("transform")
+        .unwrap()
+        .into_iter()
+        .map(get_transformer)
+        .collect()
+}
+
+// -------------------------------------------------------------------------------------------------
+// Helper functions to convert command line arguments into objects.
+// -------------------------------------------------------------------------------------------------
+
 fn get_provider<'a>(matches: &'a ArgMatches<'a>) -> Box<Provider> {
     match matches.value_of("input") {
         Some("stdin") => Box::new(content::streams::StdinProvider::new()),
@@ -282,6 +308,17 @@ fn get_consumer<'a>(matches: &'a ArgMatches<'a>) -> Box<Consumer> {
     }
 }
 
+fn get_transformer(name: &str) -> Box<Transformer> {
+    match name {
+        "upper" | "uppercase" => Box::new(transform::casing::TransformUpperCase::new()),
+        "lower" | "lowercase" => Box::new(transform::casing::TransformLowerCase::new()),
+        "randomcase" => Box::new(transform::casing::TransformRandomCase::new()),
+        _ => panic!("Unsupported --transform argument passed validation."),
+    }
+}
+
+// -------------------------------------------------------------------------------------------------
+// Helper functions to parse specific command line argument values.
 // -------------------------------------------------------------------------------------------------
 
 fn parse_frequency(str: &str) -> Option<GeneratorFrequency> {
@@ -323,6 +360,10 @@ fn parse_stacking(str: &str) -> Option<usize> {
     }
 }
 
+// -------------------------------------------------------------------------------------------------
+// The CLAP command line application.
+// -------------------------------------------------------------------------------------------------
+
 fn handle_cli() -> ArgMatches<'static> {
     let valid_reps: Vec<&'static str> = REPERTOIRES.keys().into_iter().map(|s| &s[..]).collect();
     let mut valid_input: Vec<&'static str> = vec!["stdin", "args", "arguments"];
@@ -353,13 +394,15 @@ fn handle_cli() -> ArgMatches<'static> {
                 .short("l")
                 .long("length")
                 .help("Enforces a maximum string length.")
+                .long_help("Enforces a maximum string length. This will not truncate the text.")
+                .alias("limit")
                 .value_name("LENGTH")
                 .takes_value(true)
                 .validator(|v| {
                     v.parse::<usize>()
                         .or(Err("Length provided is not an integer.".to_owned()))
                         .and_then(|v| {
-                            if v > 0 {
+                            if v >= 0 {
                                 Ok(())
                             } else {
                                 Err("Length provided is not a positive integer.".to_owned())
@@ -456,6 +499,17 @@ fn handle_cli() -> ArgMatches<'static> {
                         .and(Some(()))
                         .ok_or("Invalid frequency.".to_owned())
                 }),
+        )
+        .arg(
+            Arg::with_name("transform")
+                .short("t")
+                .long("transform")
+                .help("Applies a transformation to the supplied text.")
+                .value_name("TRANSFORMER")
+                .takes_value(true)
+                .number_of_values(1)
+                .multiple(true)
+                .possible_values(&["uppercase", "lowercase", "randomcase", "upper", "lower"]),
         )
         .arg(
             Arg::with_name("list-repertoires")
