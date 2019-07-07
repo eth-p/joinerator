@@ -1,0 +1,10 @@
+name:        default
+description: 'Unicode: Combining Diacritical Marks'
+glyphs:
+  - codepoint: "\u0300"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0301"
+    combines:  '\w'
+    position:  ABOVE

@@ -1,0 +1,12 @@
+# Project
+/target
+/src/repertoire.cache
+**/*.rs.bk
+
+# Environment
+.DS_Store
+._*
+
+# IDE
+.*.swp
+.idea

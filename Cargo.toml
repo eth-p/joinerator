@@ -1,0 +1,34 @@
+[package]
+name = "joinerator"
+version = "0.1.0"
+authors = ["Ethan P. <eth-p+git@hidden.email>"]
+description = "A utility for stylizing text with Unicode combining characters."
+edition = "2018"
+build = "src/build.rs"
+
+[dependencies]
+clipboard = { version = "0.5.0", optional = true }
+clap = "2.33.0"
+failure = "0.1.5"
+serde = { version = "1.0", features = ["derive"] }
+serde_regex = "0.4.0"
+serde_cbor = "0.10.0"
+regex = "1.1.8"
+lazy_static = "1.3.0"
+ansi_term = "0.11.0"
+atty = "0.2.11"
+rand = "0.7.0"
+
+[build-dependencies]
+failure = "0.1.5"
+serde = { version = "1.0", features = ["derive"] }
+serde_yaml = "0.8"
+serde_regex = "0.4.0"
+serde_cbor = "0.10.0"
+regex = "1.1.8"
+
+[features]
+default = ["clipboard_support"]
+
+# Enable the clipboard as a provider and consumer.
+clipboard_support = ["clipboard"]
