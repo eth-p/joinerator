@@ -2,7 +2,7 @@
 name = "joinerator"
 version = "0.1.0"
 authors = ["Ethan P. <eth-p+git@hidden.email>"]
-description = "A utility for stylizing text with Unicode combining characters."
+description = "A utility for stylizing text with Unicode combining marks."
 edition = "2018"
 build = "src/build.rs"
 
