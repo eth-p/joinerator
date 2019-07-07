@@ -131,7 +131,7 @@ fn main() {
     let repertoire = get_repertoire(matches.value_of("repertoire").unwrap()).unwrap();
 
     let mut joinerator = Joinerator::new(Options {
-        allow_unreadable: false,
+        allow_unreadable: matches.is_present("unreadable"),
         limit: matches
             .value_of("length")
             .map(|v| v.parse::<usize>().unwrap()),
@@ -139,13 +139,13 @@ fn main() {
         generator: vec![
             GeneratorOptions {
                 category: GlyphPosition::ABOVE,
-                stacking: 1,
-                frequency: GeneratorFrequency::Percentage(0.6),
+                stacking: parse_stacking(matches.value_of("above:stacking").unwrap()).unwrap(),
+                frequency: parse_frequency(matches.value_of("above:frequency").unwrap()).unwrap(),
             },
             GeneratorOptions {
                 category: GlyphPosition::BELOW,
-                frequency: GeneratorFrequency::Percentage(0.6),
-                stacking: 0,
+                stacking: parse_stacking(matches.value_of("below:stacking").unwrap()).unwrap(),
+                frequency: parse_frequency(matches.value_of("below:frequency").unwrap()).unwrap(),
             },
         ],
     });
@@ -267,6 +267,45 @@ fn get_consumer<'a>(matches: &'a ArgMatches<'a>) -> Box<Consumer> {
 
 // -------------------------------------------------------------------------------------------------
 
+fn parse_frequency(str: &str) -> Option<GeneratorFrequency> {
+    if str.ends_with("%") {
+        match (&str[0..(str.len() - 1)]).parse::<f32>() {
+            Err(_) => None,
+            Ok(v) => {
+                if v > 0.0 && v <= 100.0 {
+                    Some(GeneratorFrequency::Percentage(v / 100.0))
+                } else {
+                    None
+                }
+            }
+        }
+    } else {
+        match str.parse::<usize>() {
+            Err(_) => None,
+            Ok(v) => {
+                if v > 0 {
+                    Some(GeneratorFrequency::Fixed(v))
+                } else {
+                    None
+                }
+            }
+        }
+    }
+}
+
+fn parse_stacking(str: &str) -> Option<usize> {
+    match str.parse::<usize>() {
+        Err(_) => None,
+        Ok(v) => {
+            if v >= 0 {
+                Some(v)
+            } else {
+                None
+            }
+        }
+    }
+}
+
 fn handle_cli() -> ArgMatches<'static> {
     let valid_reps: Vec<&'static str> = REPERTOIRES.keys().into_iter().map(|s| &s[..]).collect();
     let mut valid_input: Vec<&'static str> = vec!["stdin", "args", "arguments"];
@@ -312,6 +351,66 @@ fn handle_cli() -> ArgMatches<'static> {
                 }),
         )
         .arg(
+            Arg::with_name("above:stacking")
+                .short("a")
+                .long("above:stacking")
+                .help("Specifies the maximum number symbols that can go above a glyph.")
+                .alias("above-stacking")
+                .value_name("COUNT")
+                .takes_value(true)
+                .default_value("1")
+                .validator(|v| {
+                    parse_stacking(&v)
+                        .and(Some(()))
+                        .ok_or("Invalid stacking size.".to_owned())
+                }),
+        )
+        .arg(
+            Arg::with_name("above:frequency")
+                .short("A")
+                .long("above:frequency")
+                .help("Specifies the frequency of the symbols that can go above a glyph.")
+                .alias("above-frequency")
+                .value_name("FREQUENCY")
+                .takes_value(true)
+                .default_value("60%")
+                .validator(|v| {
+                    parse_frequency(&v)
+                        .and(Some(()))
+                        .ok_or("Invalid frequency.".to_owned())
+                }),
+        )
+        .arg(
+            Arg::with_name("below:stacking")
+                .short("b")
+                .long("below:stacking")
+                .help("Specifies the maximum number symbols that can go below a glyph.")
+                .alias("below-stacking")
+                .value_name("COUNT")
+                .takes_value(true)
+                .default_value("1")
+                .validator(|v| {
+                    parse_stacking(&v)
+                        .and(Some(()))
+                        .ok_or("Invalid stacking size.".to_owned())
+                }),
+        )
+        .arg(
+            Arg::with_name("below:frequency")
+                .short("B")
+                .long("below:frequency")
+                .help("Specifies the frequency of the symbols that can go below a glyph.")
+                .alias("above-frequency")
+                .value_name("FREQUENCY")
+                .takes_value(true)
+                .default_value("60%")
+                .validator(|v| {
+                    parse_frequency(&v)
+                        .and(Some(()))
+                        .ok_or("Invalid frequency.".to_owned())
+                }),
+        )
+        .arg(
             Arg::with_name("list-repertoires")
                 .long("list-repertoires")
                 .help("Lists all the available character repertoires.")
@@ -322,6 +421,12 @@ fn handle_cli() -> ArgMatches<'static> {
                 .short("q")
                 .long("quiet")
                 .help("Suppresses non-essential messages."),
+        )
+        .arg(
+            Arg::with_name("unreadable")
+                .short("u")
+                .long("unreadable")
+                .help("Allows unreadable character combinations."),
         )
         .arg(
             Arg::with_name("watch")
