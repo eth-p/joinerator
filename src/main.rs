@@ -125,6 +125,18 @@ fn main() {
         return;
     }
 
+    // Handle verbosity.
+    let verbose = if matches.is_present("verbose") {
+        true
+    } else if matches.is_present("quiet") {
+        false
+    } else {
+        match matches.value_of("output") {
+            Some("stdout") => false,
+            _ => true,
+        }
+    };
+
     // Initialize program.
     let mut provider = get_provider(&matches);
     let mut consumer = get_consumer(&matches);
@@ -160,7 +172,7 @@ fn main() {
         &mut joinerator,
         &mut provider,
         &mut consumer,
-        !matches.is_present("quiet"),
+        verbose,
         matches.is_present("watch"),
     );
 
@@ -455,7 +467,15 @@ fn handle_cli() -> ArgMatches<'static> {
             Arg::with_name("quiet")
                 .short("q")
                 .long("quiet")
-                .help("Suppresses non-essential messages."),
+                .help("Suppresses non-essential messages.")
+                .conflicts_with("verbose"),
+        )
+        .arg(
+            Arg::with_name("verbose")
+                .short("v")
+                .long("verbose")
+                .help("Display non-essential messages.")
+                .conflicts_with("quiet"),
         )
         .arg(
             Arg::with_name("unreadable")
