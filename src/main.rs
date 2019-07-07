@@ -147,6 +147,11 @@ fn main() {
                 stacking: parse_stacking(matches.value_of("below:stacking").unwrap()).unwrap(),
                 frequency: parse_frequency(matches.value_of("below:frequency").unwrap()).unwrap(),
             },
+            GeneratorOptions {
+                category: GlyphPosition::THROUGH,
+                stacking: parse_stacking(matches.value_of("through:stacking").unwrap()).unwrap(),
+                frequency: parse_frequency(matches.value_of("through:frequency").unwrap()).unwrap(),
+            },
         ],
     });
 
@@ -404,6 +409,36 @@ fn handle_cli() -> ArgMatches<'static> {
                 .value_name("FREQUENCY")
                 .takes_value(true)
                 .default_value("60%")
+                .validator(|v| {
+                    parse_frequency(&v)
+                        .and(Some(()))
+                        .ok_or("Invalid frequency.".to_owned())
+                }),
+        )
+        .arg(
+            Arg::with_name("through:stacking")
+                .short("c")
+                .long("through:stacking")
+                .help("Specifies the maximum number symbols that can go through a glyph.")
+                .alias("through-stacking")
+                .value_name("COUNT")
+                .takes_value(true)
+                .default_value("0")
+                .validator(|v| {
+                    parse_stacking(&v)
+                        .and(Some(()))
+                        .ok_or("Invalid stacking size.".to_owned())
+                }),
+        )
+        .arg(
+            Arg::with_name("through:frequency")
+                .short("C")
+                .long("through:frequency")
+                .help("Specifies the frequency of the symbols that can go through a glyph.")
+                .alias("through-frequency")
+                .value_name("FREQUENCY")
+                .takes_value(true)
+                .default_value("10%")
                 .validator(|v| {
                     parse_frequency(&v)
                         .and(Some(()))
