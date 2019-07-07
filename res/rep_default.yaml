@@ -8,3 +8,414 @@ glyphs:
   - codepoint: "\u0301"
     combines:  '\w'
     position:  ABOVE
+
+  - codepoint: "\u0302"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0303"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0304"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0305"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0306"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0307"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0308"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0309"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u030A"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u030B"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u030C"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u030D"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u030E"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u030F"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0310"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0311"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0312"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0313"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0314"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0315"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0316"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u0317"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u0318"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u0319"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u031A"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u031B"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u031C"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u031D"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u031E"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u031F"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u0320"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u0321"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u0322"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u0323"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u0324"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u0325"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u0326"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u0327"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u0328"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u0329"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u032A"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u032B"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u032C"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u032D"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u032E"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u032F"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u0330"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u0331"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u0332"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u0333"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u0334"
+    combines:  '\w'
+    position:  THROUGH
+
+  - codepoint: "\u0335"
+    combines:  '\w'
+    position:  THROUGH
+
+  - codepoint: "\u0336"
+    combines:  '\w'
+    position:  THROUGH
+
+  - codepoint: "\u0337"
+    combines:  '\w'
+    position:  THROUGH
+
+  - codepoint: "\u0338"
+    combines:  '\w'
+    position:  THROUGH
+
+  - codepoint: "\u0339"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u033A"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u033B"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u033C"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u033D"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u033E"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u033F"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0340"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0341"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0342"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0343"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0344"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0345"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u0346"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0347"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u0348"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u0349"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u034A"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u034B"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u034C"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u034D"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u034E"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u0350"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0351"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0352"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0353"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u0354"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u0355"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u0356"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u0357"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0358"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0359"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u035A"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u035B"
+    combines:  '\w'
+    position:  ABOVE
+
+# 035C -> 0362 are multiple character joiners.
+# This isn't supported right now.
+
+  - codepoint: "\u0363"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0364"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0365"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0366"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0367"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0368"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0369"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u036A"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u036B"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u036C"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u036D"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u036E"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u036F"
+    combines:  '\w'
+    position:  ABOVE
