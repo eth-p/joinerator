@@ -132,6 +132,9 @@ fn main() {
 
     let mut joinerator = Joinerator::new(Options {
         allow_unreadable: false,
+        limit: matches
+            .value_of("length")
+            .map(|v| v.parse::<usize>().unwrap()),
         repertoire,
         generator: vec![
             GeneratorOptions {
@@ -142,7 +145,7 @@ fn main() {
             GeneratorOptions {
                 category: GlyphPosition::BELOW,
                 frequency: GeneratorFrequency::Percentage(0.6),
-                stacking: 1,
+                stacking: 0,
             },
         ],
     });
@@ -288,6 +291,25 @@ fn handle_cli() -> ArgMatches<'static> {
                 .takes_value(true)
                 .default_value("default")
                 .possible_values(&valid_reps[..]),
+        )
+        .arg(
+            Arg::with_name("length")
+                .short("l")
+                .long("length")
+                .help("Enforces a maximum string length.")
+                .value_name("LENGTH")
+                .takes_value(true)
+                .validator(|v| {
+                    v.parse::<usize>()
+                        .or(Err("Length provided is not an integer.".to_owned()))
+                        .and_then(|v| {
+                            if v > 0 {
+                                Ok(())
+                            } else {
+                                Err("Length provided is not a positive integer.".to_owned())
+                            }
+                        })
+                }),
         )
         .arg(
             Arg::with_name("list-repertoires")
