@@ -19,6 +19,7 @@ lazy_static! {
     static ref REGEX_LI: Regex = Regex::new("(?i)\\bl(i)").unwrap();
     static ref REGEX_TT: Regex = Regex::new("(?i)tt").unwrap();
     static ref REGEX_VY: Regex = Regex::new("(?i)\\Bvy\\b").unwrap();
+    static ref REGEX_GOD: Regex = Regex::new("(?i)\\bgod").unwrap();
 }
 
 /// A transformer that UwU-izes text.
@@ -43,6 +44,7 @@ impl Transformer for TransformUwuize {
         let replaced = REGEX_WHA.replace_all(&replaced, "wu");
         let replaced = REGEX_OH.replace_all(&replaced, "owh");
         let replaced = REGEX_VY.replace_all(&replaced, "vwy");
+        let replaced = REGEX_GOD.replace_all(&replaced, "gawd");
         Ok(replaced.to_string())
     }
 }
