@@ -307,6 +307,7 @@ fn get_provider<'a>(matches: &'a ArgMatches<'a>) -> Box<Provider> {
 fn get_consumer<'a>(matches: &'a ArgMatches<'a>) -> Box<Consumer> {
     match matches.value_of("output") {
         Some("stdout") => Box::new(content::streams::StdoutConsumer::new()),
+        Some("null") => Box::new(content::null::NullConsumer::new()),
         Some("clipboard") => Box::new(content::clipboard::ClipboardConsumer::new()),
         _ => panic!("Unsupported --output argument passed validation."),
     }
@@ -372,7 +373,7 @@ fn parse_stacking(str: &str) -> Option<usize> {
 fn handle_cli() -> ArgMatches<'static> {
     let valid_reps: Vec<&'static str> = REPERTOIRES.keys().into_iter().map(|s| &s[..]).collect();
     let mut valid_input: Vec<&'static str> = vec!["stdin", "args", "arguments"];
-    let mut valid_output: Vec<&'static str> = vec!["stdout"];
+    let mut valid_output: Vec<&'static str> = vec!["stdout", "null"];
 
     #[cfg(feature = "clipboard_support")]
     {
