@@ -1,0 +1,134 @@
+name:        snowstorm
+description: 'A repertoire for the font used in software created by B__z__rd.'
+glyphs:
+  - codepoint: "\u0300"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0301"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0302"
+    combines:  '(?u)[aceg-josuwyz]'
+    position:  ABOVE
+
+  - codepoint: "\u0303"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0304"
+    combines:  '(?u)[aegiou]'
+    position:  ABOVE
+
+# 0305 doesn't render.
+
+  - codepoint: "\u0306"
+    combines:  '(?u)[aegiou]'
+    position:  ABOVE
+
+  - codepoint: "\u0307"
+    combines:  '(?u)[b-hmnprstw-z]'
+    position:  ABOVE
+
+  - codepoint: "\u0308"
+    combines:  '(?u)[b-hmnprstw-z]'
+    position:  ABOVE
+
+  - codepoint: "\u0309"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u030A"
+    combines:  '(?u)[auwy]'
+    position:  ABOVE
+
+  - codepoint: "\u030B"
+    combines:  '(?u)[ou]'
+    position:  ABOVE
+
+  - codepoint: "\u030C"
+    combines:  '(?u)[acdegijklnorstuz]'
+    position:  ABOVE
+
+# 030D doesn't render.
+# 030E doesn't render.
+
+  - codepoint: "\u030F"
+    combines:  '(?u)[aeioru]'
+    position:  ABOVE
+
+# 0310 doesn't render.
+
+  - codepoint: "\u0311"
+    combines:  '(?u)[aeioru]'
+    position:  ABOVE
+
+# 0312 -> 031A doesn't render.
+
+  - codepoint: "\u031B"
+    combines:  '(?u)[ou]'
+    position:  ABOVE
+
+# 031C -> 0322 doesn't render.
+
+  - codepoint: "\u0323"
+    combines:  '\w'
+    position:  BELOW
+
+  - codepoint: "\u0324"
+    combines:  '(?u)u'
+    position:  BELOW
+
+  - codepoint: "\u0325"
+    combines:  '(?u)a'
+    position:  BELOW
+
+  - codepoint: "\u0326"
+    combines:  '(?u)s'
+    position:  BELOW
+
+  - codepoint: "\u0327"
+    combines:  '(?u)[cdghklnrst]'
+    position:  BELOW
+
+  - codepoint: "\u0328"
+    combines:  '(?u)[aeiou]'
+    position:  BELOW
+
+# 0329 -> 032C doesn't render.
+
+  - codepoint: "\u032D"
+    combines:  '(?u)[delntu]'
+    position:  BELOW
+
+  - codepoint: "\u032E"
+    combines:  '(?u)h'
+    position:  BELOW
+
+# 032F is completely unsupported.
+
+  - codepoint: "\u0330"
+    combines:  '(?u)[eiu]'
+    position:  BELOW
+
+  - codepoint: "\u0331"
+    combines:  '(?u)[bdhklnrtz]'
+    position:  BELOW
+
+# 0332 -> 033F doesn't render.
+
+  - codepoint: "\u0340"
+    combines:  '\w'
+    position:  ABOVE
+
+  - codepoint: "\u0341"
+    combines:  '\w'
+    position:  ABOVE
+
+# 0342 -> 035B doesn't render.
+
+# 035C -> 0362 are multiple character joiners.
+# This isn't implemented right now.
+
+# 0363 -> 036F doesn't render.
