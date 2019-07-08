@@ -289,7 +289,7 @@ fn get_transformers<'a>(matches: &'a ArgMatches<'a>) -> Vec<Box<Transformer>> {
 fn get_provider<'a>(matches: &'a ArgMatches<'a>) -> Box<Provider> {
     match matches.value_of("input") {
         Some("stdin") => Box::new(content::streams::StdinProvider::new()),
-        Some("clipboard") => Box::new(content::clipboard::ClipboardProvider::new()),
+
         Some("args") | Some("arguments") => {
             let args: LinkedList<String> = matches
                 .values_of("values")
@@ -300,6 +300,9 @@ fn get_provider<'a>(matches: &'a ArgMatches<'a>) -> Box<Provider> {
             Box::new(content::strings::StringProvider::new(args))
         }
 
+        #[cfg(feature = "clipboard_support")]
+        Some("clipboard") => Box::new(content::clipboard::ClipboardProvider::new()),
+
         _ => panic!("Unsupported --input argument passed validation."),
     }
 }
@@ -308,7 +311,10 @@ fn get_consumer<'a>(matches: &'a ArgMatches<'a>) -> Box<Consumer> {
     match matches.value_of("output") {
         Some("stdout") => Box::new(content::streams::StdoutConsumer::new()),
         Some("null") => Box::new(content::null::NullConsumer::new()),
+
+        #[cfg(feature = "clipboard_support")]
         Some("clipboard") => Box::new(content::clipboard::ClipboardConsumer::new()),
+
         _ => panic!("Unsupported --output argument passed validation."),
     }
 }
