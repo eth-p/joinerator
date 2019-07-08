@@ -32,7 +32,7 @@ glyphs:
     position:  ABOVE
 
   - codepoint: "\u0308"
-    combines:  '(?u)[b-hmnprstw-z]'
+    combines:  '(?u)[aehiotuwxy]'
     position:  ABOVE
 
   - codepoint: "\u0309"
