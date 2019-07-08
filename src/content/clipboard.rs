@@ -38,14 +38,14 @@ impl ClipboardSingleton {
     /// The result containing the clipboard contents, or the last error that occurred.
     fn get_contents_retry(&mut self, tries: usize) -> Result<String, Box<std::error::Error>> {
         let mut remaining = tries + 1;
-        let mut last_err:Option<Box<std::error::Error>> = None;
+        let mut last_err: Option<Box<std::error::Error>> = None;
 
         while remaining > 0 {
             remaining -= 1;
 
             match self.clipboard.get_contents() {
                 Ok(data) => return Ok(data),
-                Err(err) => last_err = Some(err)
+                Err(err) => last_err = Some(err),
             };
 
             sleep(Duration::from_millis(10));

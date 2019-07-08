@@ -317,6 +317,7 @@ fn get_transformer(name: &str) -> Box<Transformer> {
         "upper" | "uppercase" => Box::new(transform::casing::TransformUpperCase::new()),
         "lower" | "lowercase" => Box::new(transform::casing::TransformLowerCase::new()),
         "randomcase" => Box::new(transform::casing::TransformRandomCase::new()),
+        "uwuize" => Box::new(transform::uwu::TransformUwuize::new()),
         _ => panic!("Unsupported --transform argument passed validation."),
     }
 }
@@ -513,7 +514,14 @@ fn handle_cli() -> ArgMatches<'static> {
                 .takes_value(true)
                 .number_of_values(1)
                 .multiple(true)
-                .possible_values(&["uppercase", "lowercase", "randomcase", "upper", "lower"]),
+                .possible_values(&[
+                    "uppercase",
+                    "lowercase",
+                    "randomcase",
+                    "upper",
+                    "lower",
+                    "uwuize",
+                ]),
         )
         .arg(
             Arg::with_name("list-repertoires")
