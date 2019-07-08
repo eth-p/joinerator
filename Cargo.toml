@@ -1,6 +1,6 @@
 [package]
 name = "joinerator"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Ethan P. <eth-p+git@hidden.email>"]
 description = "A utility for stylizing text with Unicode combining marks."
 edition = "2018"
