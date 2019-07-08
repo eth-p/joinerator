@@ -71,3 +71,27 @@ impl Transformer for TransformRandomCase {
         Ok(buffer)
     }
 }
+
+// -------------------------------------------------------------------------------------------------
+
+/// A transformer that makes only vowels uppercase.
+pub struct TransformVowelCase {}
+
+impl TransformVowelCase {
+    pub fn new() -> Self {
+        TransformVowelCase {}
+    }
+}
+
+impl Transformer for TransformVowelCase {
+    fn transform(&mut self, input: String) -> Result<String, Error> {
+        Ok(input
+            .to_lowercase()
+            .replace("a", "A")
+            .replace("e", "E")
+            .replace("i", "I")
+            .replace("o", "O")
+            .replace("u", "U")
+            .replace("y", "Y"))
+    }
+}
